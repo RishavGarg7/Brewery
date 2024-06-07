@@ -1,9 +1,11 @@
 import axios from "axios";
-export async function postReview({ brewId, review }) {
+export async function postReview(brewId, review) {
   try {
-    const response = await axios.post("https://brewerybe.onrender.com/api-v1/review/", {
+    const user = await JSON.parse(localStorage.getItem("userId"));
+    const response = await axios.post("https://brewerybe.onrender.com/api-v1/review/post-review", {
       brewId: brewId,
       review: review,
+      user: user,
     });
     console.log(response.data);
     return response.data;
