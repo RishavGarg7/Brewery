@@ -38,6 +38,10 @@ export async function registerUser(
         password: password,
       }
     );
+    await localStorage.setItem(
+      "userId",
+      JSON.stringify(response.data.data._id)
+    );
     console.log(response.data);
     await localStorage.setItem(
       "userId",
