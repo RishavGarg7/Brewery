@@ -1,6 +1,7 @@
 import React from "react";
 import "../style/Navbar.css";
 import Logo from "../assets/Logo.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar({
   text,
@@ -11,6 +12,10 @@ export default function Navbar({
   getData,
   searchbar = "true",
 }) {
+  const navigate = useNavigate();
+  const logout = () => {
+    navigate("/login");
+  };
   return (
     <div className="navbar">
       <div className="navleft">
@@ -77,7 +82,9 @@ export default function Navbar({
         )}
       </div>
       <div className="navright">
-        <button className="logoutbtn">Logout</button>
+        <button className="logoutbtn" onClick={() => logout()}>
+          Logout
+        </button>
       </div>
     </div>
   );
