@@ -2,7 +2,7 @@ import axios from "axios";
 export async function loginUser(email, password, setError, setErrMsg) {
   try {
     const response = await axios.post(
-      "http://127.0.0.1:8000/api-v1/user/login",
+      "https://brewerybe.onrender.com/api-v1/user/login",
       {
         email: email,
         password: password,
@@ -26,7 +26,7 @@ export async function registerUser(
 ) {
   try {
     const response = await axios.post(
-      "http://127.0.0.1:8000/api-v1/user/register",
+      "https://brewerybe.onrender.com/api-v1/user/register",
       {
         username: username,
         email: email,
