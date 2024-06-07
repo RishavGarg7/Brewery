@@ -4,24 +4,23 @@ import "../style/BreweryDetail.css";
 import Navbar from "../components/Navbar.js";
 import { useLocation } from "react-router-dom";
 import { getReview, postReview } from "../api/Review.js";
+import ReviewBox from "../components/ReviewBox.js";
 
 export default function BreweryDetail() {
   const { state } = useLocation();
   const item = state.item;
-  console.log(state);
   const [review, setReview] = useState();
-  const [oldReview, setOldReview] = useState();
+  const [oldReview, setOldReview] = useState([]);
   useEffect(() => {
     document.title = "Brewery Detail";
   }, []);
   useEffect(() => {
     async function fetchReview() {
-      const res = getReview("abcde@gmail.com");
-      setOldReview(res);
-      console.log(res);
+      const res = await getReview(item.id);
+      setOldReview(res.data);
     }
     fetchReview();
-  }, []);
+  }, [item.id]);
   return (
     <div className="DetailsOuterContainer">
       <Navbar searchbar="false" />
@@ -80,9 +79,25 @@ export default function BreweryDetail() {
             value={review}
             onChange={(e) => setReview(e.target.value)}
           />
-          <button className="AddReviewBtn">Add Review</button>
+          <button
+            className="AddReviewBtn"
+            onClick={async () => {
+              const res = await postReview(item.id, review);
+              if (res) {
+                alert("Review Posted Successfully");
+                window.location.reload();
+              }
+            }}
+          >
+            Add Review
+          </button>
         </div>
       </div>
+      {oldReview && oldReview.length > 0 ? (
+        oldReview.map((item) => <ReviewBox item={item} />)
+      ) : (
+        <text className="noReviewText">No Reviews</text>
+      )}
     </div>
   );
 }

@@ -70,3 +70,7 @@
 .reviewInput:focus {
   outline: none;
 }
+.noReviewText {
+  text-align: center;
+  font-weight: 600;
+}
