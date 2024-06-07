@@ -8,6 +8,10 @@ export async function loginUser(email, password, setError, setErrMsg) {
         password: password,
       }
     );
+    await localStorage.setItem(
+      "userId",
+      JSON.stringify(response.data.data._id)
+    );
     console.log(response);
     return response.data;
   } catch (error) {
@@ -32,6 +36,10 @@ export async function registerUser(
         email: email,
         password: password,
       }
+    );
+    await localStorage.setItem(
+      "userId",
+      JSON.stringify(response.data.data._id)
     );
     console.log(response.data);
     return response.data;
