@@ -11,6 +11,7 @@ export default function BreweryDetail() {
   const item = state.item;
   const [review, setReview] = useState();
   const [oldReview, setOldReview] = useState([]);
+  const [refresh, setRefresh] = useState('false');
   useEffect(() => {
     document.title = "Brewery Detail";
   }, []);
@@ -20,7 +21,7 @@ export default function BreweryDetail() {
       setOldReview(res.data);
     }
     fetchReview();
-  }, [item.id]);
+  }, [item.id,setRefresh]);
   return (
     <div className="DetailsOuterContainer">
       <Navbar searchbar="false" />
@@ -85,7 +86,7 @@ export default function BreweryDetail() {
               const res = await postReview(item.id, review);
               if (res) {
                 alert("Review Posted Successfully");
-                window.location.reload();
+                setRefresh(!refresh)
               }
             }}
           >
